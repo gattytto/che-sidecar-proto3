@@ -8,12 +8,10 @@
 # Contributors:
 #   Red Hat, Inc. - initial API and implementation
 
-FROM eclipse/che-theia-endpoint-runtime:next
+FROM eclipse/che-sidecar-clang
 
-ENV HOME=/home/theia
-RUN mkdir -p /plugins/sidecars
-RUN for f in "${HOME}" "/etc/passwd" "/projects" "/plugins/sidecars"; do \
-      echo "Changing permissions on ${f}" && chgrp -R 777 ${f} && \
+RUN for f in "${HOME}" "/etc/passwd" "/projects"; do \
+      echo "Changing permissions on ${f}" && chgrp -R 0 ${f} && \
       chmod -R g+rwX ${f}; \
     done
 
