@@ -12,7 +12,7 @@ FROM debian:10-slim
 
 ENV HOME=/home/theia
 
-RUN apt-get update && \
+RUN mkdir apt-get update && \
     apt-get install wget gnupg unzip -y && \
     echo 'deb http://apt.llvm.org/buster/ llvm-toolchain-buster-8 main' >> /etc/apt/sources.list && \
     wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add - && \
@@ -25,7 +25,7 @@ RUN apt-get update && \
     update-alternatives --install /usr/bin/clangd clangd /usr/bin/clangd-8 100 && \
     update-alternatives --install /usr/bin/clang-format clang-format /usr/bin/clang-format-8 100
 
-RUN cd /home/theia && mkdir protoc-download && cd protoc-download && \
+RUN cd /tmp && mkdir protoc-download && cd protoc-download && \
     wget https://github.com/protocolbuffers/protobuf/releases/download/v3.11.2/protoc-3.11.2-linux-x86_64.zip && \
     unzip protoc-3.11.2-linux-x86_64.zip && rm -f protoc-3.11.2-linux-x86_64.zip && \
     cp bin/protoc /usr/local/bin && cd ../ && rm -rf protoc-download
