@@ -8,7 +8,7 @@
 # Contributors:
 #   Red Hat, Inc. - initial API and implementation
 
-FROM eclipse/che-sidecar-clang
+FROM quay.io/eclipse/che-sidecar-clang
 
 RUN for f in "${HOME}" "/etc/passwd" "/projects"; do \
       echo "Changing permissions on ${f}" && chgrp -R 0 ${f} && \
