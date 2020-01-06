@@ -8,16 +8,31 @@
 # Contributors:
 #   Red Hat, Inc. - initial API and implementation
 
-FROM quay.io/eclipse/che-sidecar-clang:8-83adb3a 
+FROM debian:10-slim
 
-RUN for f in "${HOME}" "/etc/passwd" "/projects"; do \
+ENV HOME=/home/theia
+
+RUN apt-get update && \
+    apt-get install wget gnupg -y && \
+    echo 'deb http://apt.llvm.org/buster/ llvm-toolchain-buster-8 main' >> /etc/apt/sources.list && \
+    wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add - && \
+    wget -O - https://deb.nodesource.com/setup_10.x | bash - && \
+    apt-get update && \
+    apt-get install nodejs clangd-8 clang-8 clang-format-8 gdb -y && \
+    apt-get clean && apt-get -y autoremove && rm -rf /var/lib/apt/lists/* && \
+    update-alternatives --install /usr/bin/clang clang /usr/bin/clang-8 100 && \
+    update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-8 100 && \
+    update-alternatives --install /usr/bin/clangd clangd /usr/bin/clangd-8 100 && \
+    update-alternatives --install /usr/bin/clang-format clang-format /usr/bin/clang-format-8 100
+
+RUN mkdir /projects ${HOME} && \
+    # Change permissions to let any arbitrary user
+    for f in "${HOME}" "/etc/passwd" "/projects"; do \
       echo "Changing permissions on ${f}" && chgrp -R 0 ${f} && \
       chmod -R g+rwX ${f}; \
     done
 
-RUN set -e \
-    && \
-    cd /home/theia && mkdir protoc-download && cd protoc-download && \
+RUN cd /home/theia && mkdir protoc-download && cd protoc-download && \
     wget https://github.com/protocolbuffers/protobuf/releases/download/v3.11.2/protoc-3.11.2-linux-x86_64.zip && \
     unzip protoc-3.11.2-linux-x86_64.zip && rm -f protoc-3.11.2-linux-x86_64.zip && \
     cp bin/protoc /usr/local/bin && cd ../ && rm -rf protoc-download
