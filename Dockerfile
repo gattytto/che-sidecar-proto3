@@ -12,10 +12,10 @@ FROM eclipse/che-theia-endpoint-runtime:next
 
 ENV HOME=/home/theia
 
-RUN for f in "${HOME}" "/etc/passwd" "/projects"; do \
-      echo "Changing permissions on ${f}" && chgrp -R 0 ${f} && \
-      chmod -R g+rwX ${f}; \
-    done
+#RUN for f in "${HOME}" "/etc/passwd" "/projects"; do \
+#      echo "Changing permissions on ${f}" && chgrp -R 0 ${f} && \
+#      chmod -R g+rwX ${f}; \
+#    done
 
 RUN set -e \
     && \
