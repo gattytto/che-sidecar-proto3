@@ -30,9 +30,14 @@ RUN cd /tmp && mkdir protoc-download && cd protoc-download && \
     unzip protoc-3.11.2-linux-x86_64.zip && rm -f protoc-3.11.2-linux-x86_64.zip && \
     cp bin/protoc /usr/local/bin && cd ../ && rm -rf protoc-download
     
+RUN cd /tmp && mkdir googleapis-download && cd googleapis-download && \
+    wget https://github.com/googleapis/googleapis/archive/master.zip && unzip master.zip && \
+    mkdir -p /go/src/github.com/googleapis && mv googleapis-master /go/src/github.com/googleapis/googleapis && \
+    cd / && rm -rf /tmp/googleapis-download
+    
 RUN mkdir /projects ${HOME} && \
     # Change permissions to let any arbitrary user
-    for f in "${HOME}" "/etc/passwd" "/projects"; do \
+    for f in "${HOME}" "/etc/passwd" "/projects" "/go"; do \
       echo "Changing permissions on ${f}" && chgrp -R 0 ${f} && \
       chmod -R g+rwX ${f}; \
     done
