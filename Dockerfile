@@ -28,7 +28,7 @@ RUN apt-get update && \
 RUN cd /tmp && mkdir protoc-download && cd protoc-download && \
     wget https://github.com/protocolbuffers/protobuf/releases/download/v3.11.2/protoc-3.11.2-linux-x86_64.zip && \
     unzip protoc-3.11.2-linux-x86_64.zip && rm -f protoc-3.11.2-linux-x86_64.zip && \
-    cp bin/protoc /usr/local/bin && mkdir /usr/include/protobuf \
+    cp bin/protoc /usr/local/bin && mkdir /usr/include/protobuf &&  \
     cp -R include/* /usr/include/protobuf/ && cd ../ && rm -rf protoc-download
     
 RUN cd /tmp && mkdir googleapis-download && cd googleapis-download && \
