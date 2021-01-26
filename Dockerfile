@@ -1,3 +1,4 @@
+# Copyright (c) 2019 Red Hat, Inc.
 # This program and the accompanying materials are made
 # available under the terms of the Eclipse Public License 2.0
 # which is available at https://www.eclipse.org/legal/epl-2.0/
@@ -10,7 +11,7 @@
 FROM debian:10-slim
 
 ENV HOME=/home/theia
-ENV PROTOC_VERSION=3.11.2
+ENV PROTOC_VERSION=3.14.0
 
 RUN echo "deb http://deb.debian.org/debian buster-backports main" >> /etc/apt/sources.list && \
     apt-get update && \
