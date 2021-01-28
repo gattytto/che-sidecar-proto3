@@ -33,7 +33,7 @@ RUN cd /tmp && mkdir protoc-download && cd protoc-download && \
     mkdir plint && cd plint && \
     wget https://github.com/yoheimuta/protolint/releases/download/v${PLINT}/protolint_${PLINT}_Linux_x86_64.tar.gz && \
     tar -zxvf protolint_${PLINT}_Linux_x86_64.tar.gz && install protolint /usr/bin/protolint && cd .. && \
-    rm -rf plint
+    rm -rf plint && rm -f protolint*.gz
     
 RUN mkdir /projects ${HOME} && \
     # Change permissions to let any arbitrary user
