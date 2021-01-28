@@ -13,6 +13,7 @@ FROM debian:10-slim
 ENV HOME=/home/theia
 ENV PROTOC_VERSION=3.14.0
 ENV PLINT=0.28.0
+ENV BUF=0.36.0
 
 RUN echo "deb http://deb.debian.org/debian buster-backports main" >> /etc/apt/sources.list && \
     apt-get update && \
@@ -33,7 +34,9 @@ RUN cd /tmp && mkdir protoc-download && cd protoc-download && \
     mkdir plint && cd plint && \
     wget https://github.com/yoheimuta/protolint/releases/download/v${PLINT}/protolint_${PLINT}_Linux_x86_64.tar.gz && \
     tar -zxvf protolint_${PLINT}_Linux_x86_64.tar.gz && install protolint /usr/bin/protolint && cd .. && \
-    rm -rf plint && rm -f protolint*.gz
+    rm -rf plint && rm -f protolint*.gz && \
+    wget https://github.com/bufbuild/buf/releases/download/v${BUF}/protoc-gen-buf-breaking-Linux-x86_64 -o /usr/bin/buf && \
+    chmod +x /usr/bin/buf
     
 RUN mkdir /projects ${HOME} && \
     # Change permissions to let any arbitrary user
