@@ -35,7 +35,7 @@ RUN cd /tmp && mkdir protoc-download && cd protoc-download && \
     wget https://github.com/yoheimuta/protolint/releases/download/v${PLINT}/protolint_${PLINT}_Linux_x86_64.tar.gz && \
     tar -zxvf protolint_${PLINT}_Linux_x86_64.tar.gz && install protolint /usr/bin/protolint && cd .. && \
     rm -rf plint && rm -f protolint*.gz && \
-    wget https://github.com/bufbuild/buf/releases/download/v${BUF}/protoc-gen-buf-breaking-Linux-x86_64 -o /usr/bin/buf && \
+    wget https://github.com/bufbuild/buf/releases/download/v${BUF}/protoc-gen-buf-breaking-Linux-x86_64 -O /usr/bin/buf && \
     chmod +x /usr/bin/buf
     
 RUN mkdir /projects ${HOME} && \
