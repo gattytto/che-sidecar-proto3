@@ -35,9 +35,12 @@ RUN cd /tmp && mkdir protoc-download && cd protoc-download && \
     wget https://github.com/yoheimuta/protolint/releases/download/v${PLINT}/protolint_${PLINT}_Linux_x86_64.tar.gz && \
     tar -zxvf protolint_${PLINT}_Linux_x86_64.tar.gz && install protolint /usr/bin/protolint && cd .. && \
     rm -rf plint && rm -f protolint*.gz && \
-    wget https://github.com/bufbuild/buf/releases/download/v${BUF}/protoc-gen-buf-breaking-Linux-x86_64 -O /usr/bin/buf && \
-    chmod +x /usr/bin/buf
-    
+    wget https://github.com/bufbuild/buf/releases/download/v${BUF}/buf-Linux-x86_64 -O /usr/bin/buf && chmod +x /usr/bin/buf && \
+    wget https://github.com/bufbuild/buf/releases/download/v${BUF}/protoc-gen-buf-breaking-Linux-x86_64 -O /usr/bin/protoc-gen-buf-breaking && chmod +x /usr/bin/protoc-gen-buf-breaking && \
+    wget https://github.com/bufbuild/buf/releases/download/v${BUF}/protoc-gen-buf-check-breaking-Linux-x86_64 -O /usr/bin/protoc-gen-buf-check-breaking && chmod +x /usr/bin/protoc-gen-buf-check-breaking && \
+    wget https://github.com/bufbuild/buf/releases/download/v${BUF}/protoc-gen-buf-check-lint-Linux-x86_64 -O /usr/bin/protoc-gen-buf-check-lint && chmod +x /usr/bin/protoc-gen-buf-check-lint && \
+    wget https://github.com/bufbuild/buf/releases/download/v${BUF}/protoc-gen-buf-lint-Linux-x86_64 -O /usr/bin/protoc-gen-buf-lint && chmod +x /usr/bin/protoc-gen-buf-lint
+        
 RUN mkdir /projects ${HOME} && \
     # Change permissions to let any arbitrary user
     for f in "${HOME}" "/etc/passwd" "/projects"; do \
